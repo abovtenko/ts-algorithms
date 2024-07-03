@@ -1,80 +1,44 @@
 
-let limit = 1000;
+let limit = 10000;
 let array: number[] = [];
 
-// i want to setup an array of numbers
-// random generation
-// so that I can sort it later
+// populate unsorted values
 for (var i = 0; i < limit; i++) {
     let v = Math.random() * limit;
     array.push(v);    
 }
 
 // define sorting function
-function Sort(value : number[]) : void {
+function BubbleSort(list : number[]) : void {
 
-    for (var i = 0; i < value.length; i++) {
+    for (var i = 0; i < list.length - 1; i++) {
         
-        if (i == 0)
-            continue;
+        for (var j = 0; j < list.length - 1 - i; j++) {
+        
+            if (list[j] > list[j + 1]) {
+                var current = list[j];
 
-        var current = value[i];
-        var previous = value[i - 1];
-
-        if (current > previous) {
-            value[i - 1] = current;
-            value[i] = previous;
+                list[j] = list[j + 1];
+                list[j + 1] = current;
+            }    
         }
-
     }
-
 }
 
-function IsSorted(value : number[]) : boolean {
-    var result = false;
-
-    for (var i = 0; i < value.length; i++) {
-        
-        if (i == 0)
-            continue;
-
-        var current = value[i];
-        var previous = value[i - 1];
-
-        if (current > previous) {
-            return false;
-        }
-
-    }
-
-    return true;
-}
-
-// print
+// print the array to console
 function Print(value : number[]) : void {
     for (var i = 0; i < value.length; i++) {
         console.log(value[i]);   
     }
 }
 
+//Print(array);
 
+console.time("Sort Time");
+BubbleSort(array);
+console.timeEnd("Sort Time");  
 
-let isSorted = false;
-let sortRun = 1;
-
-do {
-    console.log("Sorting run: " + sortRun);
-    sortRun++;
-
-    console.time("Sort Time");
-    Sort(array);
-    console.timeEnd("Sort Time");    
-
-    isSorted = IsSorted(array);
-    console.log("Is sorted: " + isSorted);
-    console.log("");
-}
-while (!isSorted);
+//Print(array);
 
 
 
